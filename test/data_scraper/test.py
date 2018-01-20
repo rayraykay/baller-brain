@@ -141,10 +141,7 @@ def main():
 
 		def bfgs_cost(theta):
 			return compute_cost(theta, X, y)
-		
-		print(X)
-		print(y)
-		print(compute_cost(init_theta,X,y))
+
 		final_theta = optimize.fmin_bfgs(bfgs_cost, init_theta, maxiter=BFGS_MAX_ITER, epsilon=BFGS_EPSILON)
 		print("The minimization has completed.")
 		print("The final accuracy of the machine is: " + str(percentage_accuracy(X, final_theta, y)) + "%")

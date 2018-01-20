@@ -5,13 +5,17 @@ import numpy
 
 import listmanip as lm
 
-from StringIO import StringIO
+try:
+	from StringIO import StringIO
+except ImportError:
+	from io import StringIO
+
 from datetime import datetime, date, timedelta
 
 USERNAME_PASSWORD_FILENAME 		= "username_password.txt"
 
 # parameters for nba
-REG_SEASON_DURATION				= 20	# 7 months, so roughly 31*7
+REG_SEASON_DURATION				= 31*5	# 7 months, so roughly 31*7
 REG_SEASON_TIMEDELTA			= 0
 
 REG_START_DATE_2016_2017		= 20161025
@@ -27,7 +31,7 @@ OVR_WINS						= 1
 OVR_LOSSES						= 2
 OVR_POINTS						= 3
 OVR_POINTS_AGAINST				= 4
-OVR_DESIRED_COLS				= [2] + range(7,11)
+OVR_DESIRED_COLS				= [2] + list(range(7,11))
 
 # debug constants
 DEBUG_GET_URL_LIST				= [
