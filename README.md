@@ -1,7 +1,9 @@
 Updates:
 - January 20, 2017
-I can get the data matrix now for the simple features I have! Time to feed it into the algorithm.
-
+It functions!! Now we have to add some more features and work on cleaning up the code, specifically:
+-Adding more error checking
+-Wrapping everything in nice classes so that getting data and feeding into the algorithm and getting results is easier
+-Adding compatibility for Python 3
 
 To run this program, you need a conventional installation of Python 2 with tkinter, and the external libraries numpy, scipy, and matplotlib. I would've written this in Python 3, but UofT ECE really hates upgrading :((
 
