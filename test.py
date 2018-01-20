@@ -2,7 +2,8 @@ import numpy
 import pylab
 from scipy import optimize
 
-data_file = 'data.txt'
+DATA_FILE = 'data.txt'
+XY_VERBOSE = False
 
 def show_logistic_graph(X, xlabel, ylabel, legend):
 	pylab.scatter(X[pos, 0], X[pos, 1], marker='o', c='b')
@@ -13,7 +14,7 @@ def show_logistic_graph(X, xlabel, ylabel, legend):
 	pylab.show()
 
 def bfgs_test(func, init_x):
-	return optimize.fmin_bfgs(func, init_x);
+	return optimize.fmin_bfgs(func, init_x)
 
 def func_x_squared(x):
 	return x ** 2;
@@ -25,16 +26,17 @@ def sigmoid(X):
 
 if __name__=="__main__":
 	print('Taking in data from file...')
-	data = numpy.loadtxt(data_file, delimiter=',')
-	print(data)
+	data = numpy.loadtxt(DATA_FILE, delimiter=',')
 
 	X = data[:, 0:2]
 	y = data[:, 2]
 
-	print('Printing out data for x and y...')	
-	print('x: ')
-	print(str(X))
-	print('y: \n' + str(y))
+	if (XY_VERBOSE):
+		print(data)
+		print('Printing out data for x and y...')	
+		print('x: ')
+		print(str(X))
+		print('y: \n' + str(y))
 
 	pos = numpy.where(y == 1)
 	neg = numpy.where(y == 0)
