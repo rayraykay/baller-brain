@@ -11,7 +11,7 @@ from datetime import datetime, date, timedelta
 USERNAME_PASSWORD_FILENAME 		= "username_password.txt"
 
 # parameters for nba
-REG_SEASON_DURATION				= 31*7	# 7 months, so roughly 31*7
+REG_SEASON_DURATION				= 31	# 7 months, so roughly 31*7
 REG_SEASON_TIMEDELTA			= 0
 
 REG_START_DATE_2016_2017		= 20161025
@@ -96,6 +96,17 @@ def get_content(_url, _params):
 	# just return content for now
 	return response.content
 
+def feature_matrix():
+	raw_matrix = debug_get_scoreboard_for_year()
+	data_hash = get_team_data_hash()
+	for i in range(len(raw_matrix)):
+		home_team_data = data_hash[raw_matrix[i][1]]
+		away_team_data = data_hash[raw_matrix[i][0]]
+		result = [raw_matrix[i][2]]
+		raw_matrix[i] = home_team_data + away_team_data + result
+		print(raw_matrix[i])
+	return raw_matrix
+
 # returns a hashmap of data for teams
 # the keys are the team abbreviations
 def get_team_data_hash():
@@ -106,12 +117,11 @@ def get_team_data_hash():
 
 	#initialize with w/l ratio and points/points against ratio
 	for team in teams:
-		win_loss = float(team[OVR_WINS])/float(team[OVR_LOSSES])
+		#win_loss = float(team[OVR_WINS])/float(team[OVR_LOSSES])
 		pts_pts_against = float(team[OVR_POINTS])/float(team[OVR_POINTS_AGAINST])
-		data_hash[team[OVR_TEAM_ABBR]] = [win_loss, pts_pts_against]
-	
-	for data in data_hash:
-		print(data+": "+str(data_hash[data]))
+		data_hash[team[OVR_TEAM_ABBR]] = [pts_pts_against]
+
+	return data_hash
 
 # returns a list of game results, where the each list item is:
 # [away team abbr, home team abbr, whether away team won]
@@ -134,8 +144,6 @@ def debug_get_scoreboard_for_year():
 			game_to_append = [away_team_abbr, home_team_abbr, result]
 			raw_matrix.append(game_to_append)
 			
-			print(game_to_append)
-
 		current_date = current_date + timedelta(1)
 
 	return raw_matrix
