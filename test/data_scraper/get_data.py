@@ -11,7 +11,7 @@ from datetime import datetime, date, timedelta
 USERNAME_PASSWORD_FILENAME 		= "username_password.txt"
 
 # parameters for nba
-REG_SEASON_DURATION				= 31	# 7 months, so roughly 31*7
+REG_SEASON_DURATION				= 30*2	# 7 months, so roughly 31*7
 REG_SEASON_TIMEDELTA			= 0
 
 REG_START_DATE_2016_2017		= 20161025
