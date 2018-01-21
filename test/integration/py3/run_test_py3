@@ -1,0 +1,2 @@
+2to3 -w *.py
+python3 ./data_test.py

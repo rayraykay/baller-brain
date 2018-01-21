@@ -6,7 +6,7 @@ import numpy
 import listmanip as lm
 
 try:
-	from StringIO import StringIO
+	from io import StringIO
 except ImportError:
 	from io import StringIO
 
@@ -15,7 +15,7 @@ from datetime import datetime, date, timedelta
 USERNAME_PASSWORD_FILENAME 		= "username_password.txt"
 
 # parameters for nba
-REG_SEASON_DURATION				= 5	# 7 months, so roughly 31*7
+REG_SEASON_DURATION				= 10	# 7 months, so roughly 31*7
 REG_SEASON_TIMEDELTA			= 0
 
 REG_START_DATE_2016_2017		= 20161025
@@ -36,9 +36,9 @@ OVR_DESIRED_COLS				= [2] + list(range(7,11))
 # debug constants
 DEBUG_GET_URL_LIST				= [
 	"https://api.mysportsfeeds.com/v1.2/pull/nba/2016-2017-regular/overall_team_standings.csv?teamstats=W,L,PTS,PTSA",
-	"https://api.mysportsfeeds.com/v1.2/pull/nba/2016-2017-regular/scoreboard.csv?",
+	"https://api.mysportsfeeds.com/v1.2/pull/nba/2016-2017-regular/scoreboard.csv?", 
 ]
-DEBUG_GET_URL					= DEBUG_GET_URL_LIST[1]
+DEBUG_GET_URL					= DEBUG_GET_URL_LIST[1] 
 DEBUG_DESIRED_COLS				= OVR_DESIRED_COLS
 
 def create_header(username, password):
@@ -62,7 +62,7 @@ def process_csv_to_2d(csv_content, desired_cols):
 			col = 0
 			row_to_insert = []
 			for col_item in row_item:
-				if col in desired_cols:
+				if col in desired_cols: 
 					row_to_insert.append(col_item)
 				col = col + 1
 			result.append(row_to_insert)
@@ -82,21 +82,21 @@ def get_content(_url, _params):
 	for row in read_rows:
 		del username_password[:]
 		for word in row:
-			username_password.append(word)
+			username_password.append(word)	
 
 	username = username_password[0]
 	password = username_password[1]
 
 	try:
 		response = requests.get(
-			url = _url,
+			url = _url,		
 			params = _params,
 			headers=create_header(username, password)
 		)
 	except requests.exceptions.RequestException:
 		print("Failure to GET data.")
-
-	# should have some addtional error-checking, but
+	
+	# should have some addtional error-checking, but 
 	# just return content for now
 	return response.content
 
@@ -108,7 +108,7 @@ def feature_matrix():
 		away_team_data = data_hash[raw_matrix[i][0]]
 		result = [raw_matrix[i][2]]
 		raw_matrix[i] = home_team_data + away_team_data + result
-		print(raw_matrix[i])
+		print((raw_matrix[i]))
 	return raw_matrix
 
 # returns a hashmap of data for teams
@@ -133,21 +133,21 @@ def debug_get_scoreboard_for_year():
 	"Getting the scoreboard for the year..."
 	current_date = datetime.strptime(str(REG_START_DATE_2016_2017), "%Y%m%d").date()
 	current_date = current_date + timedelta(REG_SEASON_TIMEDELTA)
-	raw_matrix = []
-
+	raw_matrix = []	
+	
 	for i in range(REG_SEASON_DURATION):
 		params = { "fordate": current_date.strftime("%Y%m%d") }
 		content = get_content(DEBUG_GET_URL_LIST[1], params)
-
+	
 		current_raw_games, headers = process_csv_to_2d(content, SB_DESIRED_COLS)
 		for game in current_raw_games:
 			away_team_abbr = game[SB_AWAY_TEAM_ABBR_INDEX]
 			home_team_abbr = game[SB_HOME_TEAM_ABBR_INDEX]
 			result = int(game[SB_AWAY_TEAM_SCORE_INDEX] > game[SB_HOME_TEAM_SCORE_INDEX])
-
+			
 			game_to_append = [away_team_abbr, home_team_abbr, result]
 			raw_matrix.append(game_to_append)
-
+			
 		current_date = current_date + timedelta(1)
 
 	return raw_matrix
@@ -160,10 +160,11 @@ def debug_print_content(content):
 	# display headers nicely
 	print("Displaying headers...")
 	for i in range(len(headers)):
-		print("Header " + str(i) + ": " + str(headers[i]))
+		print(("Header " + str(i) + ": " + str(headers[i])))
 
 	# display selected matrix
-	selected_headers = lm.selected_items(headers, DEBUG_DESIRED_COLS)
+	selected_headers = lm.selected_items(headers, DEBUG_DESIRED_COLS) 
 	print(selected_headers)
 	data = numpy.array(raw_array)
 	print(data)
+
