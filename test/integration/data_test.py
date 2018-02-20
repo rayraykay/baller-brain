@@ -31,7 +31,7 @@ if __name__=="__main__":
 	legend = ['Away Team Won', 'Home Team Won']
 	xlabel = 'Away Team Points-to-Points Against Ratio'
 	ylabel = 'Home Team Points-to-Points Against Ratio'
-	show_logistic_graph(X, xlabel, ylabel, legend, pos, neg)
+	#show_logistic_graph(X, xlabel, ylabel, legend, pos, neg)
 
 	m = X.shape[0]
 	ones = numpy.matrix(numpy.zeros(m)+1)
