@@ -40,7 +40,7 @@ class SPORTS_FEEDS_CONSTANTS():
 
 	USERNAME_PASSWORD_FILENAME 		= "username_password.txt"
 
-	SEASON_DURATION	    			= 30*3	    # 7 months, so roughly 31*7
+	SEASON_DURATION	    			= 10	    # 7 months, so roughly 31*7
 	SEASON_TIMEDELTA	    		= 0         # you can set this to request starting at a start date delayed by REG_SEASON_TIMEDELTA days
 		                                        # ex. if this is set to 10, and if you request data for the 2017-18 season, then the data 
 		                                        # will start on 20171028 instead
