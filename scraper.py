@@ -2,7 +2,6 @@ import requests
 import base64
 import csv
 import numpy
-
 import listmanip as lm
 
 # try python 2, otherwise python 3
@@ -32,7 +31,7 @@ class Sports_Feeds_Scraper():
 			self.feed_type = feed_type
 			print("Setting season to " + feed_type)
 
-	# WARNING: The following functions with a leading underscoreare meant to be 
+	# WARNING: The following functions with a leading underscores are meant to be 
     # internal to the class, so please refrain from changing this function unless 
     # you really know what you're doing.
 
@@ -129,13 +128,8 @@ class Sports_Feeds_Scraper():
 				resp_code = response.status_code	
 			except requests.exceptions.RequestException:
 				print("Failure to GET data.")
-
-			if (resp_code == 429):
-				print("We have been throttled, received response 429. Going to put the program in an infinite loop for 300 seconds...")
-				begin_time = datetime.now()
-				current_time = datetime.now()
-				while ((current_time - begin_time).total_seconds() > 300):
-					current_time = datetime.now()
+				print("We have been throttled, received response 429. Try using the program again in 5 minutes. Returning with fatal system exit..")
+				sys.exit()
 
 		# should have some addtional error-checking, but
 		# just return content for now
@@ -152,7 +146,10 @@ class Sports_Feeds_Scraper():
 		original_feed_type = self.feed_type
 		self.feed_type = "scoreboard"
 
+		print('Now beginning the process of obtaining game outcome data.')
+
 		for i in range(SF.SEASON_DURATION):
+			print('Gathering and processing data for day ' + str(i))	
 			params = { "fordate": current_date.strftime("%Y%m%d") }
 			content = self._get_content(params)
 
@@ -166,6 +163,8 @@ class Sports_Feeds_Scraper():
 				raw_matrix.append(game_to_append)
 
 			current_date = current_date + timedelta(1)
+
+		print('Finished processing game outcome data.')
 
 		# restore original type
 		self.feed_type = original_feed_type

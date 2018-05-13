@@ -106,8 +106,8 @@ def main():
 	data = numpy.loadtxt(DATA_FILE, delimiter=',')
 
 	# this is hardcoded in terms of dimensions, be careful
-	X = data[:, 0:2]
-	y = data[:, 2]
+	X = data[:, 0:4]
+	y = data[:, 4]
 
 	if (XY_VERBOSE):
 		print(data)

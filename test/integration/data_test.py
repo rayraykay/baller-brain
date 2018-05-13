@@ -20,10 +20,10 @@ if __name__=="__main__":
 	#data = numpy.loadtxt('data.txt', delimiter=',')
 
 	# this is hardcoded in terms of dimensions, be careful
-	X = data[:, 0:2]
+	X = data[:, 0:3]
 	# DELETE THIS WITH NBA
 	X = X/5
-	y = data[:, 2]
+	y = data[:, 3]
 
 	pos = numpy.where(y == 1)
 	neg = numpy.where(y == 0)
