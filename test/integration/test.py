@@ -3,15 +3,15 @@ from numpy import transpose, log, where, array
 import pylab
 from scipy import optimize
 
-DATA_FILE 					= 'data.txt'
-XY_VERBOSE 					= True
-FULL_J_MATRIX_VERBOSE 		= False
-PREDICT_ONLY_VERBOSE 		= True
+DATA_FILE 				= 'data.txt'
+XY_VERBOSE 				= False
+FULL_J_MATRIX_VERBOSE 		        = False
+PREDICT_ONLY_VERBOSE 		        = False
 
-BFGS_MAX_ITER				= 10000
-BFGS_EPSILON				= 0.000001
+BFGS_MAX_ITER				= 2
+BFGS_EPSILON				= 0.01
 
-LOG_DIVIDE_BY_ZERO_DEBUG	= False
+LOG_DIVIDE_BY_ZERO_DEBUG	        = False
 X_DOT_THETA_DEBUG			= False
 DEBUG_REG_CONST				= 100
 

@@ -14,16 +14,16 @@ def show_logistic_graph(X, xlabel, ylabel, legend, pos, neg):
 	pylab.show()
 
 if __name__=="__main__":
-	print(optimize.fmin_bfgs(test.func_x_squared, 1))
 	data = get_data.feature_matrix()
 	data = numpy.array(data)
 	#data = numpy.loadtxt('data.txt', delimiter=',')
 
 	# this is hardcoded in terms of dimensions, be careful
-	X = data[:, 0:3]
+	print "Using indices 0:2 in data matrix"
+	X = data[:, 0:2]
 	# DELETE THIS WITH NBA
-	X = X/5
-	y = data[:, 3]
+	X = X
+	y = data[:, 4]
 
 	pos = numpy.where(y == 1)
 	neg = numpy.where(y == 0)
@@ -45,6 +45,6 @@ if __name__=="__main__":
 	def bfgs_cost(theta):
 		return test.compute_cost(theta, X, y)
 
-	final_theta = optimize.fmin_bfgs(bfgs_cost, init_theta, maxiter=10000, epsilon=0.001)
+	final_theta = optimize.fmin_bfgs(bfgs_cost, init_theta, maxiter=1000, epsilon=0.1)
 	print("The minimization has completed.")
 	print("The final accuracy of the machine is: " + str(test.percentage_accuracy(X, final_theta, y)) + "%")
