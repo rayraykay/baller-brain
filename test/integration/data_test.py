@@ -20,9 +20,8 @@ if __name__=="__main__":
 
 	# this is hardcoded in terms of dimensions, be careful
 	print "Using indices 0:2 in data matrix"
-	X = data[:, 0:2]
+	X = data[:, 0:4]
 	# DELETE THIS WITH NBA
-	X = X
 	y = data[:, 4]
 
 	pos = numpy.where(y == 1)
@@ -45,6 +44,6 @@ if __name__=="__main__":
 	def bfgs_cost(theta):
 		return test.compute_cost(theta, X, y)
 
-	final_theta = optimize.fmin_bfgs(bfgs_cost, init_theta, maxiter=1000, epsilon=0.1)
+	final_theta = optimize.fmin_bfgs(bfgs_cost, init_theta, maxiter=1000, epsilon=0.001)
 	print("The minimization has completed.")
 	print("The final accuracy of the machine is: " + str(test.percentage_accuracy(X, final_theta, y)) + "%")
