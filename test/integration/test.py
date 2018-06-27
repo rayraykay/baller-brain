@@ -2,6 +2,7 @@ import numpy
 from numpy import transpose, log, where, array
 import pylab
 from scipy import optimize
+from decimal import *
 
 DATA_FILE 				= 'data.txt'
 XY_VERBOSE 				= False
@@ -43,7 +44,7 @@ def compute_cost(theta,X,y): #computes cost given predicted and actual values
 		print(X.dot(theta).T)
 
     #y = reshape(y,(len(y),1))
-	J = (1./m) * (-transpose(y).dot(log(sigmoid(X.dot(theta)))) 
+	J = Decimal((1./m)) * Decimal(-transpose(y).dot(log(sigmoid(X.dot(theta)))) 
 			- transpose(1-y).dot(log(1-sigmoid(X.dot(theta)))))
 
 	grad = transpose((1./m)*transpose(sigmoid(X.dot(theta)) - y).dot(X))

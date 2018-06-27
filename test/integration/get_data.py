@@ -16,7 +16,7 @@ from datetime import datetime, date, timedelta
 USERNAME_PASSWORD_FILENAME 		= "username_password.txt"
 
 # parameters for nba
-REG_SEASON_DURATION				= 30	# 7 months, so roughly 31*7
+REG_SEASON_DURATION				= 25	# 7 months, so roughly 31*7
 REG_SEASON_TIMEDELTA			= 0
 
 REG_START_DATE_2016_2017		= 20161025
@@ -105,8 +105,8 @@ def feature_matrix():
 	raw_matrix = debug_get_scoreboard_for_year()
 	data_hash = get_team_data_hash()
 	for i in range(len(raw_matrix)):
-		home_team_data = [Decimal(data_hash[raw_matrix[i][1]]*10)]
-		away_team_data = [Decimal(data_hash[raw_matrix[i][0]]*10)]
+		home_team_data = [Decimal(data_hash[raw_matrix[i][1]][0]*10)]
+		away_team_data = [Decimal(data_hash[raw_matrix[i][0]][0]*10)]
 		test_feature = [(home_team_data[0]*10) ** 2] 
 		test_feature_2 = [(away_team_data[0]*10) ** 2]
 		result = [raw_matrix[i][2]]
