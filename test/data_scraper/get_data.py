@@ -48,8 +48,8 @@ def process_csv_to_2d(csv_content, desired_cols):
 	csv_file = StringIO(csv_content)
 	csv_reader = csv.reader(csv_file)
 
-	row = 0;
-	col = 0;
+	row = 0
+	col = 0
 	result = []
 	headers = []
 	selected_headers = []
